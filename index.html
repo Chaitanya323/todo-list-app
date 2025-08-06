@@ -2,27 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Todo List App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="app">
-    <h1>Todo List</h1>
+  <div class="container">
+    <h1>Todos</h1>
 
-    <!-- ✅ CHANGED: wrapped input/button in a form and added class -->
-    <form class="js-form">
-      <div class="input-section">
-        <!-- ✅ CHANGED: added correct class -->
-        <input type="text" class="js-todo-input" placeholder="Enter a new task..." />
-        <button type="submit">Add</button>
-      </div>
-    </form>
+    <!-- Input section -->
+    <div class="input-section">
+      <input type="text" id="todo-input" placeholder="E.g. Learn JavaScript" />
+      <button id="add-btn">➕</button>
+    </div>
 
-    <!-- ✅ CHANGED: added correct class -->
-    <ul class="js-todo-list"></ul>
+    <!-- Empty state message (default visible, hidden when tasks are added) -->
+    <div id="empty-state">
+      <div class="icon">📋</div>
+      <h2>Add your first todo</h2>
+      <p>What do you want to get done today?</p>
+    </div>
 
-    <p id="emptyMessage">Your todo list is empty!</p>
+    <!-- Todo list container -->
+    <ul id="todo-list"></ul>
   </div>
 
   <script src="script.js"></script>

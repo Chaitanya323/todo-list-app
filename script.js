@@ -1,92 +1,95 @@
-// ✅ Grabbing DOM elements
-const form = document.querySelector('.js-form');
-const input = document.querySelector('.js-todo-input');
-const list = document.querySelector('.js-todo-list');
-const emptyMessage = document.getElementById('emptyMessage');
+// Get references to input, button, list, and empty message
+const input = document.getElementById('todo-input');
+const addBtn = document.getElementById('add-btn');
+const list = document.getElementById('todo-list');
+const emptyState = document.getElementById('empty-state');
 
-// ✅ Load saved todos from localStorage or initialize an empty array
-let todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
+// Load todos from localStorage or start with an empty array
+let todoItems = JSON.parse(localStorage.getItem('todos')) || [];
 
-// ✅ Function to save the todos to localStorage
-function saveToLocalStorage() {
-  localStorage.setItem('todoItems', JSON.stringify(todoItems));
-}
+// Render the entire list based on the todoItems array
+function renderList() {
+  list.innerHTML = '';
 
-// ✅ Function to create a todo item element and append it to the list
-function renderTodo(todo) {
-  // Create list item
-  const li = document.createElement('li');
-  li.setAttribute('data-key', todo.id);
-  li.className = todo.checked ? 'done' : '';
-
-  // ✅ Creating inner HTML content for the todo
-  li.innerHTML = `
-    <input type="checkbox" ${todo.checked ? 'checked' : ''} onchange="toggleDone('${todo.id}')">
-    <span>${todo.text}</span>
-    <button onclick="deleteTodo('${todo.id}')">❌</button>
-  `;
-
-  // ✅ Remove old item if it already exists (for toggle)
-  const existingItem = document.querySelector(`[data-key='${todo.id}']`);
-  if (existingItem) {
-    list.replaceChild(li, existingItem);
+  // Show or hide empty message
+  if (todoItems.length === 0) {
+    emptyState.style.display = 'block';
   } else {
-    list.appendChild(li);
+    emptyState.style.display = 'none';
   }
 
-  // ✅ Toggle empty message
-  emptyMessage.style.display = todoItems.length === 0 ? 'block' : 'none';
+  // Render each todo item
+  todoItems.forEach((todo) => {
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+    if (todo.checked) li.classList.add('completed');
+
+    const span = document.createElement('span');
+    span.textContent = todo.text;
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const checkBtn = document.createElement('button');
+    checkBtn.className = 'check';
+    checkBtn.textContent = '✔';
+    checkBtn.onclick = () => toggleCheck(todo.key);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete';
+    deleteBtn.textContent = '✖';
+    deleteBtn.onclick = () => deleteTodo(todo.key);
+
+    actions.appendChild(checkBtn);
+    actions.appendChild(deleteBtn);
+
+    li.appendChild(span);
+    li.appendChild(actions);
+
+    list.appendChild(li);
+  });
+
+  // Save to localStorage
+  localStorage.setItem('todos', JSON.stringify(todoItems));
 }
 
-// ✅ Function to add a new todo
-function addTodo(text) {
-  const todo = {
-    text,
-    checked: false,
-    id: Date.now().toString()
-  };
-
-  todoItems.push(todo);
-  saveToLocalStorage();
-  renderTodo(todo);
-}
-
-// ✅ Function to handle form submit
-form.addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent form from refreshing the page
+// Add a new todo item
+function addTodo() {
   const text = input.value.trim();
   if (text !== '') {
-    addTodo(text);
+    const newTodo = {
+      text,
+      checked: false,
+      key: Date.now()
+    };
+    todoItems.push(newTodo);
     input.value = '';
-    input.focus();
+    renderList();
+  }
+}
+
+// Toggle completion state
+function toggleCheck(key) {
+  const index = todoItems.findIndex((item) => item.key === key);
+  if (index !== -1) {
+    todoItems[index].checked = !todoItems[index].checked;
+    renderList();
+  }
+}
+
+// Delete a todo
+function deleteTodo(key) {
+  todoItems = todoItems.filter((item) => item.key !== key);
+  renderList();
+}
+
+// Add on button click or Enter key press
+addBtn.addEventListener('click', addTodo);
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    addTodo();
   }
 });
 
-// ✅ Function to toggle a todo item's "done" status
-function toggleDone(key) {
-  const index = todoItems.findIndex(item => item.id === key);
-  if (index > -1) {
-    todoItems[index].checked = !todoItems[index].checked;
-    saveToLocalStorage();
-    renderTodo(todoItems[index]);
-  }
-}
-
-// ✅ Function to delete a todo item
-function deleteTodo(key) {
-  todoItems = todoItems.filter(item => item.id !== key);
-  saveToLocalStorage();
-
-  const item = document.querySelector(`[data-key='${key}']`);
-  if (item) {
-    list.removeChild(item);
-  }
-
-  // ✅ Show message if list becomes empty
-  if (todoItems.length === 0) {
-    emptyMessage.style.display = 'block';
-  }
-}
-
-// ✅ Re-render all todos on initial load
-todoItems.forEach(renderTodo);
+// Render on load
+document.addEventListener('DOMContentLoaded', renderList);
