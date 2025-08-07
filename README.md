@@ -1,53 +1,60 @@
-```
 # 🗒️ Todo List App
 
-A sleek and responsive Todo List Web App built using **HTML**, **CSS**, and **JavaScript**.  
-This app allows users to manage daily tasks with a clean UI and **localStorage** support.
+A sleek, responsive Todo List web application built using **HTML**, **CSS**, and **JavaScript**. This app allows users to manage their daily tasks efficiently with persistent local storage and intuitive UI.
 
 ---
 
-## 🎯 Features
+## ✨ Features
 
-- ✅ Add new tasks
-- ❌ Delete tasks
-- ✏️ Mark tasks as completed
-- 💾 Persistent storage via localStorage
-- 📱 Responsive design for mobile and desktop
-- ⚠️ Empty state message when no todos
+- ✅ Add new tasks with a click  
+- ❌ Delete tasks individually  
+- ☑️ Mark tasks as complete/incomplete  
+- 💾 Save tasks automatically using `localStorage`  
+- 📱 Responsive layout for mobile and desktop  
+- 🕳️ Shows “No tasks” message when empty  
 
 ---
 
-## 🚀 How to Run
+## 📸 Demo
 
-1. Clone the repo:
+> *(You can upload a screenshot here later and add the link)*  
+Example placeholder:  
+![Todo App Demo](demo-screenshot.png)
+
+---
+
+## 🚀 How to Run Locally
+
+1. **Clone the repository**
    git clone https://github.com/Chaitanya323/todo-list-app.git
-
-2. Navigate into the folder:
+2. **Navigate into the folder**
    cd todo-list-app
-
-3. Open `index.html` in your browser.
-
----
-
-## 🛠️ Built With
-
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- localStorage API
+3. **Open the app**
+   Double-click on index.html
+   OR
+   Right-click index.html → Open with → your browser
 
 ---
 
-## 📸 Preview
+## 🛠️ Tech Stack
 
-> *(Insert screenshot here if needed)*
+HTML5
+
+CSS3
+
+JavaScript (Vanilla)
+
+localStorage API
+
+Right-click index.html → Open with → your browser
 
 ---
 
-## 👤 Author
+👤 Author
+Name: Chaitanya
+GitHub: @Chaitanya323
 
-**Chaitanya**
+---
 
-GitHub: https://github.com/Chaitanya323
-
-```
+📄 License
+This project is licensed under the MIT License.
