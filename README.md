@@ -17,8 +17,7 @@ A sleek, responsive Todo List web application built using **HTML**, **CSS**, and
 
 ## 📸 Demo
 
-> *(You can upload a screenshot here later and add the link)*  
-Example placeholder:  
+>   
 ![Todo App Demo](https://github.com/Chaitanya323/todo-list-app/blob/main/images/todo-app.png?raw=true)
 
 ---
